@@ -12,7 +12,7 @@ app.use(cors());
 
 const connect = async () => {
   try {
-    await mongoose.connect(process.env.MONGOOSE_URL);
+    await mongoose.connect('mongodb+srv://mdabdulq62:nadim123@cluster0.mjympox.mongodb.net/arba?retryWrites=true&w=majority');
     console.log("connect");
   } catch (error) {
     console.log(error);
