@@ -4,6 +4,7 @@ const cors = require("cors");
 const authRoutes = require("./Routes/auth");
 const ProductRoutes = require("./Routes/product");
 const CartRoutes = require("./Routes/cart");
+const CategoryRoutes = require("./Routes/Category");
 
 const app = express();
 require("dotenv").config();
@@ -25,6 +26,7 @@ app.get("/", async (req, res) => {
 
 app.use("/user", authRoutes)
 app.use("/product", ProductRoutes)
+app.use("/category", CategoryRoutes)
 app.use("/cart", CartRoutes)
 app.listen(3020, () => {
   connect();
