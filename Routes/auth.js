@@ -1,8 +1,11 @@
 const express = require("express");
 const jwt = require("jsonwebtoken");
 const UserModel = require("../models/usermodel");
+const multer = require("multer");
+const fs = require("fs");
 
 const authRoutes = express.Router();
+
 
 authRoutes.post("/signup", async (req, res) => {
   try {
@@ -28,6 +31,8 @@ authRoutes.post("/signup", async (req, res) => {
     res.status(500).json({ message: "Internal server error" });
   }
 });
+
+
 
 authRoutes.post("/login", async (req, res) => {
   try {
@@ -94,3 +99,55 @@ authRoutes.put("/profile/update", async (req, res) => {
 
 
 module.exports = authRoutes;
+
+
+
+
+
+// file uplaod code try
+
+// const storage = multer.diskStorage({
+//   destination: function (req, file, cb) {
+//     const uploadDir = "../upload/avatars"; 
+//     fs.mkdir(uploadDir, { recursive: true }, function (err) {
+//       if (err && err.code !== "EEXIST") {
+//         console.error("Error creating directory:", err);
+//       }
+//       cb(null, uploadDir);
+//     });
+//   },
+//   filename: (req, file, cb) => {
+//     return cb(
+//       null,
+//       `${file.fieldname}_${Date.now()}${path.extname(file.originalname)}`
+//     );
+//   },
+// });
+
+// const upload = multer({ storage: storage });
+
+// authRoutes.post("/signup", upload.single("avatar"), async (req, res) => {
+//   try {
+//     const { fullName, userName, email, password,avatar } = req.body;
+
+//     const existingUser = await UserModel.findOne({ email });
+//     if (existingUser) {
+//       return res.status(400).json({ message: "Email is already registered" });
+//     }
+
+//     const newUser = new UserModel({
+//       fullName,
+//       userName,
+//       email,
+//       password,
+//       avatar, 
+//     });
+
+//     await newUser.save();
+
+//     res.status(201).json({ message: "Signup successful" });
+//   } catch (error) {
+//     console.error(error);
+//     res.status(500).json({ message: "Internal server error" });
+//   }
+// });
